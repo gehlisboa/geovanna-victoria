@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fotos de Marte</title>
+    <link rel="stylesheet" href="api.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-custom-nav">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"> SPACEVERSE</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">INÍCIO</a></li>
+            <li class="nav-item"><a class="nav-link active" href="fotos_do_dia.html">FOTOS DO DIA</a></li>
+            <li class="nav-item"><a class="nav-link active" href="fotos_de_marte.html">FOTOS DE MARTE</a></li>
+            <li class="nav-item"><a class="nav-link active" href="objetos_proximos_a_terra.html">OBJETOS PRÓXIMOS A TERRA</a></li>
+            <li class="nav-item"><a class="nav-link active" href="imagens_da_terra.html">IMAGENS DA TERRA VISTA PELO SATÉLITE</a></li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search"/>
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+      <div class="container-fluid bg-custom text-center text-white p-4">
+            <h1 class="mb-4 titulo">OBJETOS PRÓXIMOS A TERRA</h1>
+            <div id="objetos" class="d-flex flex-wrap justify-content-center gap-4"></div>
+            <div id="loading" class="mt-3">Carregando objetos...</div>
+      </div>
+
+ <script>
+  const container = document.getElementById("objetos");
+  const loading = document.getElementById("loading");
+
+  fetch("https://api.nasa.gov/neo/rest/v1/feed?start_date=2025-05-20&end_date=2025-05-26&api_key=2CqY6b4GddYUgaq6gqjliArDVsIMJ0QTPWMo7euD")
+    .then((res) => {
+      if (!res.ok) throw new Error(`Erro ${res.status} ao buscar objetos próximos da Terra`);
+      return res.json();
+    })
+    .then((data) => {
+      loading.style.display = "none";
+
+      const objetos = data.near_earth_objects;
+
+      if (!objetos || Object.keys(objetos).length === 0) {
+        container.innerHTML = "<p>Nenhum objeto encontrado nesse intervalo.</p>";
+        return;
+      }
+
+      const dias = Object.keys(objetos).sort(); 
+
+      dias.forEach((dia) => {
+        objetos[dia].forEach((obj) => {
+          const nome = obj.name;
+          const diametroMin = obj.estimated_diameter.kilometers.estimated_diameter_min.toFixed(2);
+          const diametroMax = obj.estimated_diameter.kilometers.estimated_diameter_max.toFixed(2);
+          const velocidade = obj.close_approach_data[0].relative_velocity.kilometers_per_hour;
+          const distancia = obj.close_approach_data[0].miss_distance.kilometers;
+          const dataAproximacao = new Date(obj.close_approach_data[0].close_approach_date).toLocaleDateString("pt-BR");
+
+          const card = document.createElement("div");
+          card.className = "card text-white bg-dark shadow";
+          card.style.width = "300px";
+
+          card.innerHTML = `
+            <div class="card-body">
+              <h5 class="card-title">${nome}</h5>
+              <p class="card-text">📅 Data de Aproximação: <strong>${dataAproximacao}</strong></p>
+              <p class="card-text">📏 Diâmetro estimado: ${diametroMin} km - ${diametroMax} km</p>
+              <p class="card-text">💨 Velocidade: ${parseFloat(velocidade).toFixed(0)} km/h</p>
+              <p class="card-text">🌍 Distância da Terra: ${parseFloat(distancia).toLocaleString()} km</p>
+            </div>
+          `;
+
+          container.appendChild(card);
+        });
+      });
+    })
+    .catch((err) => {
+      loading.textContent = "Erro ao carregar dados.";
+      console.error("Erro na API NEO:", err);
+    });
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  </body>
+</html>

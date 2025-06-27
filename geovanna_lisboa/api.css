@@ -1,0 +1,131 @@
+.bg-custom {
+  background-color: #101018;
+  min-height: 100vh; 
+  width: 100%;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem; 
+  box-sizing: border-box;
+}
+
+
+.bg-custom-nav {
+  background-color: #212121;
+  font-weight: bold;
+  font-size:15px;
+}
+
+.navbar-brand {
+  color: #f8f8f7 !important; 
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.nav-link { 
+  font-weight: 400;
+  font-style: normal;
+  color: #ffffff !important;
+  margin-right: 10px;
+}
+
+.btn-outline-success {
+  background-color:  #212125 !important;
+  color: rgb(184, 184, 248) !important;  
+  border:3px solid rgb(78, 78, 131) !important; 
+}
+      
+.btn-outline-success:hover {
+  background-color:  #fdfdfd!important; 
+}
+      
+.nav-link:hover {
+  color: rgb(78, 78, 131)!important;
+}
+    
+form input[type="search"] {
+  background-color:  #212125 !important;
+  color:rgb(184, 184, 248) !important;  
+  border:3px solid rgb(78, 78, 131) !important; 
+}
+       
+form input[type="search"]:hover {
+  background-color: #fdfdfd!important;  
+}
+
+.carousel {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 600px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgb(184, 184, 248);
+}
+    
+.carousel img {
+  height: 600px;
+  object-fit: cover;
+  width:100%;
+}
+    
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color:rgb(184, 184, 248);
+  border-radius: 45%;
+}
+
+.accordion {
+  background-color: rgb(78, 78, 131); 
+  border-radius: 8px;
+  padding: 10px;
+  padding-bottom: 10px;
+}
+    
+.accordion-item {
+  margin-bottom: 10px;
+  border-radius: 6px;
+}
+    
+.accordion-button {
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 6px;
+}
+    
+.accordion-body {
+  background-color: #0b0c10;
+  color: #f3f6fc;
+  font-size: 14px;
+  padding: 15px;
+    }
+    
+.card {
+  border: 2px solid rgb(78, 78, 131);
+  border-radius: 10px;
+  background-color: #121828;
+  color: rgb(184, 184, 248);
+  transition: transform 0.3s ease;
+}
+    
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgb(184, 184, 248);
+}
+
+.container-fluid.bg-custom img {
+  box-shadow: 0 0 10px rgba(184, 184, 248, 0.5);
+}
+
+* {
+  font-family: "Silkscreen", sans-serif;
+}
+    
+.titulo{
+  color :rgb(184, 184, 248);
+}
+
+
+
